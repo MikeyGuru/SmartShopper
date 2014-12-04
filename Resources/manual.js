@@ -46,9 +46,6 @@ var barcodeB = Ti.UI.createTextField({
   // borderWidth: 2,
 });
 var picture;
-var nameA = nameB.value.toString();
-var brandA = brandB.value;
-var noteA = noteB.value;
 var myImage = Ti.UI.createImageView({
 	// width:200,
 	height:150,
@@ -78,7 +75,7 @@ var addButton = Titanium.UI.createButton({
 addButton.addEventListener('click',function(e)
 {
 	var dbInsertInfo = Titanium.Database.open('products.db');
-		dbInsertInfo.execute("INSERT INTO products (barcode, name, note, brand, image) VALUES(\"" + barcode + "\",\"" + nameB.value.toString() + "\",\"" + noteA + "\",\"" + brandA + "\",\"" + picture + "\")");
+		dbInsertInfo.execute("INSERT INTO products (barcode, name, note, brand, image) VALUES(\"" + barcode + "\",\"" + nameB.value.toString() + "\",\"" + noteB.value.toString() + "\",\"" + brandB.value.toString() + "\",\"" + picture + "\")");
 		dbInsertInfo.close();
 		
 	var n = Ti.UI.createNotification({message:""+ nameA  +"added to Shopping List"});
@@ -104,42 +101,42 @@ cancelButton.addEventListener('click',function(e)
    Titanium.API.info("You clicked the cancel button");
 });
 
-function getImage(){
-	Titanium.Media.showCamera({
- 
-    success:function(event)
-    {
-        var cropRect = event.cropRect;
-        var image = event.media;
-        var filename = "pic1.png";
-        Titanium.App.Properties.setString("filename", filename);
- 
-        var picture = Titanium.Filesystem.getFile(Titanium.Filesystem.applicationDataDirectory, filename);
-        picture.write(image);
- 
-        Ti.API.debug('Our type was: '+event.mediaType);
-        if(event.mediaType == Ti.Media.MEDIA_TYPE_PHOTO)
-        {
- 
-            myImage.image = event.media;
-            // ADD TO SQL
- 
-           if (Titanium.App.Properties.getString("filename") != null) {
-        // we have the file, so show it
-        var filename = Titanium.App.Properties.getString("filename");
- 
-        var picture = Titanium.Filesystem.getFile(Titanium.Filesystem.applicationDataDirectory, filename); 
-} 
-};
-}
-});
-return picture;
-win.add(myImage);
-
-};
+// function getImage(){function getImage(){
+	// Titanium.Media.showCamera({
+//  
+    // success:function(event)
+    // {
+        // var cropRect = event.cropRect;
+        // var image = event.media;
+        // var filename = "pic1.png";
+        // Titanium.App.Properties.setString("filename", filename);
+//  
+        // var picture = Titanium.Filesystem.getFile(Titanium.Filesystem.applicationDataDirectory, filename);
+        // picture.write(image);
+//  
+        // Ti.API.debug('Our type was: '+event.mediaType);
+        // if(event.mediaType == Ti.Media.MEDIA_TYPE_PHOTO)
+        // {
+//  
+            // myImage.image = event.media;
+            // // ADD TO SQL
+//  
+           // if (Titanium.App.Properties.getString("filename") != null) {
+        // // we have the file, so show it
+        // var filename = Titanium.App.Properties.getString("filename");
+//  
+        // var picture = Titanium.Filesystem.getFile(Titanium.Filesystem.applicationDataDirectory, filename); 
+// } 
+// };
+// }
+// });
+// return picture;
+// win.add(myImage);
+// 
+// };
 
 win.add(barcodeB);
-win.add(imageButton);
+// win.add(imageButton);
 win.add(nameB);
 win.add(brandB);
 win.add(noteB);
