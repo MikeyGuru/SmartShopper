@@ -1,0 +1,4 @@
+// this is a generated file - DO NOT EDIT
+
+COM_MIRASENSE_SCANDITSDK_OTHER_LDFLAGS=$(inherited) -framework CoreVideo -framework CoreMedia -framework CoreGraphics -framework AVFoundation -framework AudioToolbox -framework UIKit -framework QuartzCore -framework SystemConfiguration -liconv -lz -lc++
+OTHER_LDFLAGS=$(inherited) $(COM_MIRASENSE_SCANDITSDK_OTHER_LDFLAGS) 

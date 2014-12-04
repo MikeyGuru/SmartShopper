@@ -1,0 +1,8 @@
+"/Users/MikeyGuru/FinalProject/T_Workspace/Rate It V4/build/android/gen/Rate/it/ApplicationStylesheet.java"
+"/Users/MikeyGuru/FinalProject/T_Workspace/Rate It V4/build/android/gen/Rate/it/AssetCryptImpl.java"
+"/Users/MikeyGuru/FinalProject/T_Workspace/Rate It V4/build/android/gen/Rate/it/R.java"
+"/Users/MikeyGuru/FinalProject/T_Workspace/Rate It V4/build/android/gen/Rate/it/SmartShopperActivity.java"
+"/Users/MikeyGuru/FinalProject/T_Workspace/Rate It V4/build/android/gen/Rate/it/SmartShopperAppInfo.java"
+"/Users/MikeyGuru/FinalProject/T_Workspace/Rate It V4/build/android/gen/Rate/it/SmartShopperApplication.java"
+"/Users/MikeyGuru/FinalProject/T_Workspace/Rate It V4/build/android/gen/android/support/v7/appcompat/R.java"
+"/Users/MikeyGuru/FinalProject/T_Workspace/Rate It V4/build/android/gen/ti/modules/titanium/ui/R.java"
