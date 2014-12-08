@@ -8,6 +8,7 @@ var win = Titanium.UI.currentWindow;
 win.orientationModes = [Titanium.UI.PORTRAIT];
 var id = win.id;
 
+
 var db = Titanium.Database.open('products.db');
 var sql = db.execute("SELECT * FROM products WHERE id ="+ id + "");
 
@@ -28,22 +29,23 @@ var inCart = productCart ? "Yep" : "Nope";
 var name1 = Titanium.UI.createLabel({
 color: 'black',
 text: productName,
-top: 10,
+top: 3,
 left: 10,
-height: 'auto',
-width: 'auto'
+height: 55,
+width: 'auto',
+ellipsize:true 
 });
 var note1 = Titanium.UI.createLabel({
 color: 'black',
  text:"Notes: " + productNotes, 
- top: 200,
+ top: 180,
 height: 'auto',
 width: 'auto',
 left: 10
 });
 var date1 = Titanium.UI.createLabel({
 color: 'black',
-text:"Date scanned: " + productDate, 
+text:"Date added: " + productDate, 
 top: 150,
 height: 'auto',
 width: 'auto',
@@ -53,7 +55,7 @@ var barcode1 = Titanium.UI.createLabel({
 color: 'black',
 text: "UPC: " + productBarcode, 
 top: 120,
-height: 'auto',
+height: 25,
 width: 'auto',
 left: 10
 });
@@ -61,16 +63,16 @@ left: 10
 var brand1 = Titanium.UI.createLabel({
 color: 'black',
  text:"Brand: " + productBrand, 
- top: 50,
-height: 'auto',
+ top: 60,
+height: 25,
 width: 'auto',
 left: 10
 });
 var cart1 = Titanium.UI.createLabel({
 color: 'black',
  text:"In Shopping Cart: " + inCart, 
- top: 80,
-height: 'auto',
+ top: 90,
+height: 25,
 width: 'auto',
 left: 10
 });
@@ -78,11 +80,14 @@ left: 10
 
 var myImage = Ti.UI.createImageView({
 	// width:200,
-	height:200,
+	height:250,
 	image:productImage,
 	bottom: 10
 });
 myImage.defaultImage = 'images/NoImage.png';
+
+
+
 
 
 function shareItem() {
@@ -100,14 +105,11 @@ function shareItem() {
 
 
 win.add(name1);
-win.add(brand1);
+if(productBrand){win.add(brand1);};
 win.add(cart1);
-if(productNotes)
-	{
-win.add(note1);
-};
+if(productNotes){win.add(note1);};
 win.add(date1);
-win.add(barcode1);
+if(productBarcode){win.add(barcode1);};
 win.add(myImage);
 
 //New Code

@@ -8,7 +8,7 @@ Scanner = require('scanner2');
 History = require('history');
 
 var tableview = Titanium.UI.createTableView({
-	editable:true,
+	editable:true
 	});
 
 function getProducts(){
@@ -17,16 +17,19 @@ var sql = listItems.execute('SELECT * FROM products WHERE cart = 1  GROUP BY nam
 
 var data = [];
 
-
-// if(sql.rowCount === 0) {
-	// var label1 = Titanium.UI.createLabel({
+// var noItemLabel = Titanium.UI.createLabel({
 		// color:'#999',
 		// text:'No Items',
 		// font:{fontSize:20,fontFamily:'Helvetica Neue'},
 		// textAlign:'center',
 		// width:'auto'
 	// });
-	// win.add(label1);
+// 
+// if(sql.rowCount < 1) {
+	// win.add(noItemLabel);
+// };
+// if(sql.rowCount > 0) {
+	// win.remove(noItemLabel);
 // };
 
 while(sql.isValidRow()) {
@@ -35,6 +38,14 @@ while(sql.isValidRow()) {
 	var productID = sql.fieldByName('id');
 	var smallImage = sql.fieldByName('image');
 
+	var separator = Titanium.UI.createView({
+	   left : 0,
+	   bottom : 0,
+	   width : '100%',
+	   height : 1,
+	   touchEnabled : false,
+	   backgroundColor: 'grey'
+		});
 
 	var rowP = Ti.UI.createTableViewRow({
 			title:name, 
@@ -48,15 +59,18 @@ while(sql.isValidRow()) {
 		    color:'black',
 		    font:{fontFamily:'Arial', fontWeight:'normal'},
 		    text:name,
-		    left:80, top:25
+		    left:80,
+		     // top:25
   		});
   rowP.add(labelDetails);
-	var imageAvatar = Ti.UI.createImageView({
+	var myImage = Ti.UI.createImageView({
     		image:smallImage,
     		left:2,
-    		height:70
+    		height:70,
+    		// defaultImage:'images/NoImage.png'
   		});
-   rowP.add(imageAvatar);
+   rowP.add(myImage);
+   rowP.add(separator);
 	data.push (rowP);
 	// data.push({title:name, hasChild:true, id:productID, url:'detail.js'});
 	sql.next();
@@ -97,10 +111,32 @@ tableview.addEventListener('longpress', function(e) {
 	}, 1000);
 	};
 });
+function shareAllItems() {
+	            var data = [];
+				var listItemsAll = Titanium.Database.open('products.db');
+				var sql = listItemsAll.execute('SELECT name FROM products WHERE cart = 1');
+				while(sql.isValidRow()) {
+				data.push("" + sql.fieldByName('name') + "\n" );
+				sql.next();
+				};
+				listItemsAll.close;
+				
+				
+				var intent = Ti.Android.createIntent({
+				            action : Ti.Android.ACTION_SEND,
+				            type : "text/plain"
+				});
+				intent.putExtra(Ti.Android.EXTRA_TEXT, "" + data + "");
+				intent.addCategory(Ti.Android.CATEGORY_DEFAULT);
+				var chooser = Ti.Android.createIntentChooser(intent, "Send Message");
+				Ti.Android.currentActivity.startActivity(chooser);
+
+};
+
 
 win.addEventListener('open', function() { 
 	
-	var actionBar,menu,menuItem,menuItem2,menuItem3,menuItem4,activity,activity2,activity3;
+	var actionBar,menu,menuItem,menuItem2,menuItem3,menuItem4,menuItem5,menuItem6,menuItem7,activity,activity2,activity3;
 
 	actionBar = win.activity.actionBar;
 	if(actionBar){
@@ -112,16 +148,11 @@ win.addEventListener('open', function() {
 		activity.onCreateOptionsMenu = function(e){
 			menu = e.menu;
 			menuItem = menu.add({
-				title : "Refresh",
-	            icon : "images/refresh57white.png",
+				title : "Share",
+	            icon : "images/share21.png",
 	            showAsAction : Ti.Android.SHOW_AS_ACTION_IF_ROOM
 	               });
-	        menuItem.addEventListener('click', function(e){
-						getProducts();     
-						 var n = Ti.UI.createNotification({message:"Shopping List Refreshed"});
-							n.duration = Ti.UI.NOTIFICATION_DURATION_SHORT;
-						    n.show();           
-	                });
+	        menuItem.addEventListener('click', shareAllItems);
 	        menuItem2 = menu.add({
 				title : "History",
 	            icon : "images/history6.png",
@@ -168,10 +199,43 @@ win.addEventListener('open', function() {
 				  });
 				  dialog.show();				
 	                });              	
+		//New Code
+		menuItem5 = menu.add({
+				title : "Refresh",
+	            icon : "images/refresh57white.png",
+	            showAsAction : Ti.Android.SHOW_AS_ACTION_NEVER
+	               });
+	        menuItem5.addEventListener('click', function(e){
+						getProducts();     
+						 var n = Ti.UI.createNotification({message:"Shopping List Refreshed"});
+							n.duration = Ti.UI.NOTIFICATION_DURATION_SHORT;
+						    n.show();           
+	                });
+	      menuItem6 = menu.add({
+				title : "About",
+	            showAsAction : Ti.Android.SHOW_AS_ACTION_NEVER
+	               });
+	        menuItem6.addEventListener('click', function(e){
+						 var n = Ti.UI.createNotification({message:"About"});
+							n.duration = Ti.UI.NOTIFICATION_DURATION_SHORT;
+						    n.show();           
+	                });
+	         menuItem7 = menu.add({
+				title : "Help",
+	            showAsAction : Ti.Android.SHOW_AS_ACTION_NEVER
+	               });
+	        menuItem7.addEventListener('click', function(e){
+						 var n = Ti.UI.createNotification({message:"Help"});
+							n.duration = Ti.UI.NOTIFICATION_DURATION_SHORT;
+						    n.show();           
+	                });
+		
+		
+		//End new Code
 		};
 		actionBar.onHomeIconItemSelected = function() { 
 			var dialog = Ti.UI.createAlertDialog({
-			    message: 'The app was created by MikeyGuru',
+			    message: ' (c) Copyright 2014 Michael Harris. All Rights Reserved. ',
 			    ok: 'Okay',
 			    title: 'About'
 			  });

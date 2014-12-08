@@ -27,14 +27,16 @@ var row = Ti.UI.createTableViewRow({
 			hasChild:true, 
 			id:productID, 
 			url:'detail.js',
-			height:'auto'
+			height:40
  		 });
 			 
 	var labelDetails = Ti.UI.createLabel({
 		    color:'black',
 		    font:{fontFamily:'Arial', fontWeight:'normal'},
 		    text:name,
-		    left:45, top:8
+		    left:45,
+		    ellipsize:true 
+		    // top:8
   		});
   row.add(labelDetails);
 	var imageAvatar = Ti.UI.createImageView({
@@ -42,7 +44,16 @@ var row = Ti.UI.createTableViewRow({
     		left:2,
     		height:40
   		});
+  		var separator = Titanium.UI.createView({
+	   left : 0,
+	   bottom : 0,
+	   width : '100%',
+	   height : 1,
+	   touchEnabled : false,
+	   backgroundColor: 'grey'
+		});
    row.add(imageAvatar);
+   row.add(separator);
 	data.push (row);
 	// data.push({title:name, hasChild:true, id:productID, url:'detail.js'});
 	sql.next();
@@ -108,7 +119,7 @@ win.addEventListener('open', function() {
 			menuItem = menu.add({
 				title : "Refresh",
 	            icon : "images/refresh57white.png",
-	            showAsAction : Ti.Android.SHOW_AS_ACTION_IF_ROOM
+	            showAsAction : Ti.Android.SHOW_AS_ACTION_NEVER
 	               });
 	        menuItem.addEventListener('click', function(e){
 						getProducts(); 

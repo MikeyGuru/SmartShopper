@@ -1,6 +1,5 @@
 var win = Titanium.UI.currentWindow;
 win.orientationModes = [Titanium.UI.PORTRAIT];
-var barcode = win.barcode;
 
 var nameB = Ti.UI.createTextField({
   borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
@@ -35,16 +34,7 @@ var noteB = Ti.UI.createTextArea({
   borderColor: 'black',
   borderWidth: 2,
 });
-var barcodeB = Ti.UI.createTextField({
-  // borderStyle: Ti.UI.INPUT_BORDERSTYLE_ROUNDED,
-  color: 'black',
-  top: 240, left:10, 
-  width: 'auto', height: 50,
-  value:"Barcode: " + barcode,
-  editable: false,
-  // borderColor: 'black',
-  // borderWidth: 2,
-});
+
 var myImage = Ti.UI.createImageView({
 	// width:200,
 	height:150,
@@ -54,7 +44,7 @@ var myImage = Ti.UI.createImageView({
 
 var imageButton = Titanium.UI.createButton({
    title: 'Add Image',
-   right: 10,
+   left: 10,
    top: 240,
    width: 100,
    height: 50,
@@ -117,7 +107,7 @@ var addButton = Titanium.UI.createButton({
 addButton.addEventListener('click',function(e)
 {
 	var dbInsertInfo = Titanium.Database.open('products.db');
-		dbInsertInfo.execute("INSERT INTO products (barcode, name, note, brand, image) VALUES(\"" + barcode + "\",\"" + nameB.value.toString() + "\",\"" + noteB.value.toString() + "\",\"" + brandB.value.toString() + "\",\"" + theimg + "\")");
+		dbInsertInfo.execute("INSERT INTO products (name, note, brand, image) VALUES(\"" + nameB.value.toString() + "\",\"" + noteB.value.toString() + "\",\"" + brandB.value.toString() + "\",\"" + theimg + "\")");
 		dbInsertInfo.close();
 		
 	var n = Ti.UI.createNotification({message:""+ nameB.value.toString() +"added to Shopping List"});
@@ -145,7 +135,6 @@ cancelButton.addEventListener('click',function(e)
 
 
 win.add(myImage);
-win.add(barcodeB);
 win.add(imageButton);
 win.add(nameB);
 win.add(brandB);

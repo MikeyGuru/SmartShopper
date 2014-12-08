@@ -47,28 +47,35 @@ var scannedProducts = [];
     	jsonObject = JSON.parse(this.responseText);
     	var resultCount = jsonObject.total_results_count;
     	if(resultCount === 0){
-    		var m = Ti.UI.createNotification({message:"Item not found. Please add info"});
-				m.duration = Ti.UI.NOTIFICATION_DURATION_LONG;
-			    m.show();
-    		//New Code
-    		setTimeout(function(){
-	    	var win = Titanium.UI.createWindow({
+    		
+    		
+    	var dialog = Ti.UI.createAlertDialog({
+				    cancel: 1,
+				    buttonNames: ['Yes', 'No'],
+				    message: 'Item not found. Would you like to add it manually?',
+				    title: 'Add Item',
+				    textAlign:Ti.UI.TEXT_ALIGNMENT_CENTER
+				  });
+				  dialog.addEventListener('click', function(e){
+				  	if (e.index === 0){
+				    	var win = Titanium.UI.createWindow({
 		 	
-		 		title: "Add Item",
-		 		barcode: newBarcode,
-		 		url: 'manual.js',
-		 		backgroundColor: 'white'
-		 	});
-		 	win.open();
-			    // end new code
-			}, 1000);  
+					 		title: "Add Item",
+					 		barcode: newBarcode,
+					 		url: 'manual.js',
+					 		backgroundColor: 'white'
+					 	});
+					 	win.open();
+							    }
+				  });
+				   dialog.show();  
     	};
     	var itemName = jsonObject.results[0].name;
     	var itemBarcode = jsonObject.results[0].upc;
     	var itemNotes = jsonObject.results[0].category;
     	var itemBrand = jsonObject.results[0].brand;
     	var itemImage = jsonObject.results[0].images[0];
-    	var n = Ti.UI.createNotification({message:""+ itemName  +"added to Shopping List"});
+    	var n = Ti.UI.createNotification({message:""+ itemName  +" added to Shopping List"});
 			n.duration = Ti.UI.NOTIFICATION_DURATION_LONG;
 		    n.show();
         // alert(itemName);
@@ -99,16 +106,6 @@ var scannedProducts = [];
 	    }
 	 });
 
-	    
-	// Ti.Gesture.addEventListener('orientationchange', function(e) {
-	    // win.orientationModes = [Titanium.UI.PORTRAIT, Titanium.UI.UPSIDE_PORTRAIT, 
-	                   // Titanium.UI.LANDSCAPE_LEFT, Titanium.UI.LANDSCAPE_RIGHT];
-	    // if (picker != null) {
-	        // picker.setOrientation(e.orientation);
-	        // picker.setSize(Ti.Platform.displayCaps.platformWidth, 
-	                // Ti.Platform.displayCaps.platformHeight);
-    // }
-// });
 
 win.add(picker);
 
@@ -116,7 +113,7 @@ win.addEventListener('blur', function() { picker.stopScanning(); });
 win.addEventListener('focus', function() { picker.startScanning(); });
 win.addEventListener('open', function() { 
 	
-	var actionBar;
+	var actionBar,menu,menuItem,activity;
 
 	actionBar = win.activity.actionBar;
 	if(actionBar){
@@ -129,6 +126,24 @@ win.addEventListener('open', function() {
 		              	
 		 actionBar.onHomeIconItemSelected = function() { 
 			 win.close(); 
+		};
+		activity = win.activity;
+		activity.onCreateOptionsMenu = function(e){
+			menu = e.menu;
+			menuItem = menu.add({
+				title : "No Barcode",
+	            icon : "images/nobarcode.png",
+	            showAsAction : Ti.Android.SHOW_AS_ACTION_ALWAYS
+	               });
+	        menuItem.addEventListener('click', function(e){
+						var win = Titanium.UI.createWindow({
+		 	
+					 		title: "Add Item",
+					 		url: 'noBarcodeManual.js',
+					 		backgroundColor: 'white'
+					 	});
+					 	win.open();              
+	                });
 		};
 		};  
 	});
