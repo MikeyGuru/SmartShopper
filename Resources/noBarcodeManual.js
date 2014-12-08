@@ -60,7 +60,7 @@ function getImage(){
 		Ti.API.debug('Our type was: '+event.mediaType);
  if(event.mediaType == Ti.Media.MEDIA_TYPE_PHOTO) {
  	
- 			var img = event.media.imageAsResized(300, 300);
+ 			var img = event.media.imageAsResized(320, 240);
 
 			var imageView = Ti.UI.createImageView({
 				height:150,

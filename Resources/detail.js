@@ -189,8 +189,15 @@ win.addEventListener('open', function() {
 	            showAsAction : Ti.Android.SHOW_AS_ACTION_IF_ROOM
 	               });
 	               menuItem.addEventListener('click', function(e){
-						//Add edit code here               
-	                });
+						var win = Titanium.UI.createWindow({
+		 	
+					 		title: 'Edit Item',
+					 		id: id,
+					 		url: 'editProduct.js',
+					 		backgroundColor: 'white'
+					 	});
+					 	win.open();               
+				                });
 		};
 		
 		if(productCart === 1) {
@@ -201,6 +208,23 @@ win.addEventListener('open', function() {
 	             		showAsAction : Ti.Android.SHOW_AS_ACTION_ALWAYS
 	             	});
 	        menuItem4.addEventListener('click', shareItem);
+	         menuItem = menu.add({
+						title : "Edit",
+			            icon : "images/edit26white.png",
+			            showAsAction : Ti.Android.SHOW_AS_ACTION_NEVER
+	               });
+	               menuItem.addEventListener('click', function(e){
+						var win = Titanium.UI.createWindow({
+		 	
+					 		title: 'Edit Item',
+					 		id: id,
+					 		url: 'editProduct.js',
+					 		backgroundColor: 'white'
+					 	});
+					 	win.open();               
+				                });
+
+	        
 
 			menuItem2 = menu.add({
 				title : "Delete",
@@ -251,5 +275,7 @@ win.addEventListener('open', function() {
 		};  
 
 });
+	 // win.addEventListener('focus', detail);
+
 };
 detail();
