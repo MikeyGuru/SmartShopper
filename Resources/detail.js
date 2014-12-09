@@ -6,9 +6,9 @@ function detail(){
 var win = Titanium.UI.currentWindow;
 // var title = win.title;
 win.orientationModes = [Titanium.UI.PORTRAIT];
+
+
 var id = win.id;
-
-
 var db = Titanium.Database.open('products.db');
 var sql = db.execute("SELECT * FROM products WHERE id ="+ id + "");
 
@@ -111,6 +111,8 @@ if(productNotes){win.add(note1);};
 win.add(date1);
 if(productBarcode){win.add(barcode1);};
 win.add(myImage);
+
+
 
 //New Code
 win.addEventListener('open', function() {
@@ -275,7 +277,7 @@ win.addEventListener('open', function() {
 		};  
 
 });
-	 // win.addEventListener('focus', detail);
+	  // win.addEventListener('focus', detail);
 
 };
 detail();

@@ -76,6 +76,7 @@ saveButton.addEventListener('click',function(e)
 		    n.show();
 		    
    Titanium.API.info("You clicked the add button");
+   win.fireEvent('updateItem');
    win.close();
 });
 

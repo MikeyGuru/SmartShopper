@@ -17,20 +17,17 @@ var sql = listItems.execute('SELECT * FROM products WHERE cart = 1  GROUP BY nam
 
 var data = [];
 
-// var noItemLabel = Titanium.UI.createLabel({
-		// color:'#999',
-		// text:'No Items',
-		// font:{fontSize:20,fontFamily:'Helvetica Neue'},
-		// textAlign:'center',
-		// width:'auto'
-	// });
-// 
-// if(sql.rowCount < 1) {
-	// win.add(noItemLabel);
-// };
-// if(sql.rowCount > 0) {
-	// win.remove(noItemLabel);
-// };
+var noItemLabel = Titanium.UI.createLabel({
+		color:'#999',
+		text:'No Items',
+		font:{fontSize:20,fontFamily:'Helvetica Neue'},
+		textAlign:'center',
+		width:'auto'
+	});
+
+if(sql.rowCount < 1) {
+	win.add(noItemLabel);
+};
 
 while(sql.isValidRow()) {
 	
@@ -74,6 +71,7 @@ while(sql.isValidRow()) {
 	data.push (rowP);
 	// data.push({title:name, hasChild:true, id:productID, url:'detail.js'});
 	sql.next();
+	noItemLabel.text = "";
 }
 
 tableview.setData(data);

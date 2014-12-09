@@ -120,7 +120,7 @@ addButton.addEventListener('click',function(e)
 		dbInsertInfo.execute("INSERT INTO products (barcode, name, note, brand, image) VALUES(\"" + barcode + "\",\"" + nameB.value.toString() + "\",\"" + noteB.value.toString() + "\",\"" + brandB.value.toString() + "\",\"" + theimg + "\")");
 		dbInsertInfo.close();
 		
-	var n = Ti.UI.createNotification({message:""+ nameB.value.toString() +"added to Shopping List"});
+	var n = Ti.UI.createNotification({message:""+ nameB.value.toString() +" " + "added to Shopping List"});
 			n.duration = Ti.UI.NOTIFICATION_DURATION_LONG;
 		    n.show();
 		    

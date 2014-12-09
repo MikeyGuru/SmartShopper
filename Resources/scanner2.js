@@ -75,7 +75,7 @@ var scannedProducts = [];
     	var itemNotes = jsonObject.results[0].category;
     	var itemBrand = jsonObject.results[0].brand;
     	var itemImage = jsonObject.results[0].images[0];
-    	var n = Ti.UI.createNotification({message:""+ itemName  +" added to Shopping List"});
+    	var n = Ti.UI.createNotification({message:""+ itemName  +" " + "added to Shopping List"});
 			n.duration = Ti.UI.NOTIFICATION_DURATION_LONG;
 		    n.show();
         // alert(itemName);
